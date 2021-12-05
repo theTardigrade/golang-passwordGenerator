@@ -99,7 +99,11 @@ const (
 	dataGenerateManyBatchSize = 128
 )
 
-func (d Data) generateManyBatch(passwords []string, start int, end int) (err error) {
+func (d Data) generateManyBatch(passwords []string, start int, end int, wg *sync.WaitGroup) (err error) {
+	if wg != nil {
+		defer wg.Done()
+	}
+
 	for i := start; i < end; i++ {
 		var p string
 
@@ -117,7 +121,7 @@ func (d Data) GenerateMany(n int) (passwords []string, err error) {
 	passwords = make([]string, n)
 
 	if n <= dataGenerateManyBatchSize {
-		d.generateManyBatch(passwords, 0, n)
+		d.generateManyBatch(passwords, 0, n, nil)
 	} else {
 		var wg sync.WaitGroup
 
@@ -126,24 +130,16 @@ func (d Data) GenerateMany(n int) (passwords []string, err error) {
 		wg.Add(wholeBatches)
 
 		for i := 0; i < wholeBatches; i++ {
-			go func(i int) {
-				defer wg.Done()
+			start := i * dataGenerateManyBatchSize
+			end := start + dataGenerateManyBatchSize
 
-				start := i * dataGenerateManyBatchSize
-				end := start + dataGenerateManyBatchSize
-
-				d.generateManyBatch(passwords, start, end)
-			}(i)
+			d.generateManyBatch(passwords, start, end, &wg)
 		}
 
 		if start := wholeBatches * dataGenerateManyBatchSize; wholeBatches < start {
 			wg.Add(1)
 
-			go func() {
-				defer wg.Done()
-
-				d.generateManyBatch(passwords, start, n)
-			}()
+			d.generateManyBatch(passwords, start, n, &wg)
 		}
 
 		wg.Wait()
