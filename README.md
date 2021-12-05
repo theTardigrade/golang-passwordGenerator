@@ -23,6 +23,8 @@ func main() {
 			IncludeRunesList: []rune{
 				'!', '?', '-', '_', '=', '@', '$',
 				'#', '(', ')', '[', ']', '{', '}',
+				'<', '>', '+', '/', '*', '\\', '/',
+				':', ';', '&', '\'', '"', '%', '^',
 			},
 			RemoveAmbiguousRunes: true,
 			RemoveRunesList:      []rune{'X', 'x'},
