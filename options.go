@@ -5,7 +5,7 @@ type Options struct {
 	IncludeUpperCaseLetters bool
 	IncludeLowerCaseLetters bool
 	IncludeDigits           bool
-	RemoveAmbiguousRunes    bool
+	ExcludeAmbiguousRunes   bool
 	IncludeRunesList        []rune
-	RemoveRunesList         []rune
+	ExcludeRunesList        []rune
 }

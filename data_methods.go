@@ -41,7 +41,7 @@ func (d *Data) initAvailableRunes() {
 		}
 	}
 
-	if d.options.RemoveAmbiguousRunes {
+	if d.options.ExcludeAmbiguousRunes {
 		for _, r := range dataAmbiguousRunes {
 			for i, r2 := range d.availableRunes {
 				if r2 == r {
@@ -52,7 +52,7 @@ func (d *Data) initAvailableRunes() {
 		}
 	}
 
-	for _, r := range d.options.RemoveRunesList {
+	for _, r := range d.options.ExcludeRunesList {
 		for i, r2 := range d.availableRunes {
 			if r2 == r {
 				d.availableRunes = append(d.availableRunes[:i], d.availableRunes[i+1:]...)

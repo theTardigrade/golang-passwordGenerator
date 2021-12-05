@@ -26,8 +26,8 @@ func main() {
 				'<', '>', '+', '/', '*', '\\', '/',
 				':', ';', '&', '\'', '"', '%', '^',
 			},
-			RemoveAmbiguousRunes: true,
-			RemoveRunesList:      []rune{'X', 'x'},
+			ExcludeAmbiguousRunes: true,
+			ExcludeRunesList:      []rune{'X', 'x'},
 		},
 	)
 
