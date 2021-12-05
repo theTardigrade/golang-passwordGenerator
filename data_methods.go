@@ -5,7 +5,6 @@ import (
 	"math/big"
 	"strings"
 	"sync"
-	"unicode"
 )
 
 func (d *Data) initAvailableRunes() {
@@ -17,7 +16,7 @@ func (d *Data) initAvailableRunes() {
 
 	if d.options.IncludeLowerCaseLetters {
 		for r := 'a'; r <= 'z'; r++ {
-			d.availableRunes = append(d.availableRunes, unicode.ToLower(r))
+			d.availableRunes = append(d.availableRunes, r)
 		}
 	}
 
