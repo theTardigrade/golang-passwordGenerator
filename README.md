@@ -42,3 +42,7 @@ func main() {
 	}
 }
 ```
+
+## Support
+
+If you use this package, or find any value in it, please consider donating at [Ko-fi](https://ko-fi.com/thetardigrade).
