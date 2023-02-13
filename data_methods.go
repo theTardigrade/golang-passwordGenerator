@@ -117,6 +117,7 @@ func (d Data) generateManyBatch(passwords []string, start int, end int, wg *sync
 
 	return
 }
+
 func (d Data) GenerateMany(n int) (passwords []string, err error) {
 	passwords = make([]string, n)
 
@@ -133,13 +134,13 @@ func (d Data) GenerateMany(n int) (passwords []string, err error) {
 			start := i * dataGenerateManyBatchSize
 			end := start + dataGenerateManyBatchSize
 
-			d.generateManyBatch(passwords, start, end, &wg)
+			go d.generateManyBatch(passwords, start, end, &wg)
 		}
 
-		if start := wholeBatches * dataGenerateManyBatchSize; wholeBatches < start {
+		if start := wholeBatches * dataGenerateManyBatchSize; start < n {
 			wg.Add(1)
 
-			d.generateManyBatch(passwords, start, n, &wg)
+			go d.generateManyBatch(passwords, start, n, &wg)
 		}
 
 		wg.Wait()
