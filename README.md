@@ -2,6 +2,8 @@
 
 This package allows cryptographically random passwords to be generated.
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/theTardigrade/golang-passwordGenerator.svg)](https://pkg.go.dev/github.com/theTardigrade/golang-passwordGenerator) [![Go Report Card](https://goreportcard.com/badge/github.com/theTardigrade/golang-passwordGenerator)](https://goreportcard.com/report/github.com/theTardigrade/golang-passwordGenerator)
+
 ## Example
 
 ```golang
