@@ -60,13 +60,12 @@ func (d *Data) initAvailableRunes() {
 			}
 		}
 	}
+
+	d.availableRunesLenBig = big.NewInt(int64(len(d.availableRunes)))
 }
 
 func (d *Data) generateRune() (r rune, err error) {
-	len64 := int64(len(d.availableRunes))
-	lenBig := big.NewInt(len64)
-
-	iBig, err := rand.Int(rand.Reader, lenBig)
+	iBig, err := rand.Int(rand.Reader, d.availableRunesLenBig)
 	if err != nil {
 		return
 	}

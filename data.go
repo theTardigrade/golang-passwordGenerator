@@ -1,8 +1,11 @@
 package passwordGenerator
 
+import "math/big"
+
 type Data struct {
-	availableRunes []rune
-	options        *Options
+	availableRunes       []rune
+	availableRunesLenBig *big.Int
+	options              *Options
 }
 
 var (
