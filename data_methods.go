@@ -124,9 +124,7 @@ func (d *Data) generateManyBatchWithConcurrency(
 	wg *sync.WaitGroup,
 	errChan chan error,
 ) {
-	if wg != nil {
-		defer wg.Done()
-	}
+	defer wg.Done()
 
 	for i := start; i < end; i++ {
 		select {
