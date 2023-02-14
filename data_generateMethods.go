@@ -2,67 +2,9 @@ package passwordGenerator
 
 import (
 	"crypto/rand"
-	"math/big"
 	"strings"
 	"sync"
 )
-
-func (d *Data) initAvailableRunes() {
-	if d.options.IncludeUpperCaseLetters {
-		for r := 'A'; r <= 'Z'; r++ {
-			d.availableRunes = append(d.availableRunes, r)
-		}
-	}
-
-	if d.options.IncludeLowerCaseLetters {
-		for r := 'a'; r <= 'z'; r++ {
-			d.availableRunes = append(d.availableRunes, r)
-		}
-	}
-
-	if d.options.IncludeDigits {
-		for r := '0'; r <= '9'; r++ {
-			d.availableRunes = append(d.availableRunes, r)
-		}
-	}
-
-	for _, r := range d.options.IncludeRunesList {
-		var alreadyFound bool
-
-		for _, r2 := range d.availableRunes {
-			if r2 == r {
-				alreadyFound = true
-				break
-			}
-		}
-
-		if !alreadyFound {
-			d.availableRunes = append(d.availableRunes, r)
-		}
-	}
-
-	if d.options.ExcludeAmbiguousRunes {
-		for _, r := range dataAmbiguousRunes {
-			for i, r2 := range d.availableRunes {
-				if r2 == r {
-					d.availableRunes = append(d.availableRunes[:i], d.availableRunes[i+1:]...)
-					break
-				}
-			}
-		}
-	}
-
-	for _, r := range d.options.ExcludeRunesList {
-		for i, r2 := range d.availableRunes {
-			if r2 == r {
-				d.availableRunes = append(d.availableRunes[:i], d.availableRunes[i+1:]...)
-				break
-			}
-		}
-	}
-
-	d.availableRunesLenBig = big.NewInt(int64(len(d.availableRunes)))
-}
 
 func (d *Data) generateRune() (r rune, err error) {
 	iBig, err := rand.Int(rand.Reader, d.availableRunesLenBig)
