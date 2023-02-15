@@ -2,6 +2,9 @@ package passwordGenerator
 
 import "math/big"
 
+// Data is used to generate passwords, by calling the appropriate
+// method on it. The New function is used to create a pointer
+// to a Data struct.
 type Data struct {
 	availableRunes       []rune
 	availableRunesLenBig *big.Int

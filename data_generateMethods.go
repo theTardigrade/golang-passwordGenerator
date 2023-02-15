@@ -18,6 +18,11 @@ func (d *Data) generateRune() (r rune, err error) {
 	return
 }
 
+// Generate creates a single password made up of random rules.
+// The password will conform to the options set in the Data struct.
+// An error is also returned from Generate, which will be non-nil if
+// the random-number generator is not working and a password cannot
+// be succesfully generated.
 func (d *Data) Generate() (password string, err error) {
 	var builder strings.Builder
 	var r rune
@@ -88,6 +93,13 @@ func (d *Data) generateManyBatchWithConcurrency(
 	}
 }
 
+// GenerateMany creates many passwords made up of random rules.
+// The function's argument will determine exactly how many passwords
+// are generated.
+// Any passwords will conform to the options set in the Data struct.
+// An error is also returned from GenerateMany, which will be non-nil if
+// the random-number generator is not working and one of the passwords cannot
+// be succesfully generated.
 func (d *Data) GenerateMany(n int) (passwords []string, err error) {
 	passwords = make([]string, n)
 
