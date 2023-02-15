@@ -30,6 +30,10 @@ func (d *Data) Generate() (password string, err error) {
 		return
 	}
 
+	return d.generate()
+}
+
+func (d *Data) generate() (password string, err error) {
 	var builder strings.Builder
 	var r rune
 
@@ -59,7 +63,7 @@ func (d *Data) generateManyBatchWithoutConcurrency(
 	for i := start; i < end; i++ {
 		var p string
 
-		if p, err = d.Generate(); err != nil {
+		if p, err = d.generate(); err != nil {
 			return
 		}
 
@@ -86,7 +90,7 @@ func (d *Data) generateManyBatchWithConcurrency(
 		default:
 		}
 
-		p, err := d.Generate()
+		p, err := d.generate()
 		if err != nil {
 			select {
 			case errChan <- err:
@@ -108,6 +112,11 @@ func (d *Data) generateManyBatchWithConcurrency(
 // passwords cannot be succesfully generated, or if the options in the Data struct
 // provide no runes to be randomly selected when generating passwords.
 func (d *Data) GenerateMany(n int) (passwords []string, err error) {
+	if len(d.availableRunes) == 0 {
+		err = ErrNoAvailableRunes
+		return
+	}
+
 	passwords = make([]string, n)
 
 	if n <= dataGenerateManyBatchSize {
