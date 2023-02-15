@@ -47,4 +47,6 @@ func main() {
 
 ## Support
 
-If you use this package, or find any value in it, please consider donating at [Ko-fi](https://ko-fi.com/thetardigrade).
+If you use this package, or find any value in it, please consider donating:
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/S6S2EIRL0)
