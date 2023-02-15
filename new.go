@@ -1,6 +1,6 @@
 package passwordGenerator
 
-// New returns a pointer to a Data struct that is used
+// New returns a pointer to a Data struct that is used only
 // to generate passwords. An options argument determines
 // exactly how the passwords should be generated.
 func New(options Options) *Data {
