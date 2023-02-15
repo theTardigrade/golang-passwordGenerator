@@ -22,8 +22,14 @@ func (d *Data) generateRune() (r rune, err error) {
 // The password will conform to the options contained in the Data struct.
 // An error is also returned from Generate, which will be non-nil if
 // the random-number generator is not working, meaning that a password
-// cannot be succesfully generated.
+// cannot be succesfully generated, or if the options in the Data struct
+// provide no runes to be randomly selected when generating passwords.
 func (d *Data) Generate() (password string, err error) {
+	if len(d.availableRunes) == 0 {
+		err = ErrNoAvailableRunes
+		return
+	}
+
 	var builder strings.Builder
 	var r rune
 
@@ -99,7 +105,8 @@ func (d *Data) generateManyBatchWithConcurrency(
 // Any passwords will conform to the options contained in the Data struct.
 // An error is also returned from GenerateMany, which will be non-nil if
 // the random-number generator is not working, meaning that one of the
-// passwords cannot be succesfully generated.
+// passwords cannot be succesfully generated, or if the options in the Data struct
+// provide no runes to be randomly selected when generating passwords.
 func (d *Data) GenerateMany(n int) (passwords []string, err error) {
 	passwords = make([]string, n)
 
