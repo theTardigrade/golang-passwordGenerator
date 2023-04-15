@@ -30,7 +30,7 @@ func main() {
 				'🙂', '🙃',
 			},
 			ExcludeAmbiguousRunes: true,
-			ExcludeRunesList:      []rune{'X', 'x'},
+            ExcludeRunesList:      []rune{'a', 'b'},
 		},
 	)
 
